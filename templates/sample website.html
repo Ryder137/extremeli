@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXTREMELI SUITES</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --white:#ffffff;
+  --soft:#f6f8fb;
+  --blue:#4a90e2;
+  --yellow:#fdd835;
+  --accent:#d9e8f6;
+  --accent-dark:#a7c6e6;
+  --text:#1c2430;
+  --muted:#6b7280;
+}
+
+/* Reset */
+*{margin:0; padding:0; box-sizing:border-box;}
+body{font-family:'Inter', sans-serif; background:var(--white); color:var(--text);}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:20px 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(12px);
+  border-radius:0 0 20px 20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+  z-index:1000;
+  transition:background 0.3s ease;
+}
+
+.logo-container{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-container img{
+  height:60px;
+  object-fit:contain;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+.hotel-name{
+  font-family:'Playfair Display', serif;
+  font-weight:600;
+  font-size:1.5rem;
+  color:var(--text);
+  letter-spacing:1px;
+}
+
+nav a{
+  margin-left:36px;
+  text-decoration:none;
+  color:var(--text);
+  font-size:1rem;
+  font-weight:500;
+  padding:8px 14px;
+  border-radius:12px;
+  transition:all 0.3s ease;
+}
+
+nav a:hover{
+  background:var(--blue);
+  color:var(--white);
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:linear-gradient(to bottom, var(--blue), var(--soft));
+  color:var(--white);
+}
+
+.hero h1{
+  font-family:'Playfair Display', serif;
+  font-size:4rem;
+  margin-bottom:10px;
+}
+
+.hero p{
+  letter-spacing:5px;
+  font-size:1rem;
+  color:var(--black);
+}
+
+/* SECTIONS */
+section{padding:120px 80px;}
+.section-title{
+  font-family:'Playfair Display', serif;
+  font-size:2.5rem;
+  text-align:center;
+  margin-bottom:70px;
+  color:var(--blue);
+}
+
+/* ABOUT */
+.about{
+  max-width:1100px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:center;
+}
+
+.about-img{
+  height:360px;
+  border-radius:22px;
+  background:#eaeaea;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+.about-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:22px;
+}
+
+/* ROOMS */
+.rooms{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:40px;
+}
+
+.room{
+  background:#fff;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 25px 60px rgba(0,0,0,0.06);
+  transition:transform 0.3s;
+}
+
+.room:hover{transform:translateY(-5px);}
+.room img{width:100%; height:230px; object-fit:cover;}
+.room div{padding:26px; font-weight:500; font-family:'Inter',sans-serif;}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:24px;
+}
+
+.gallery img{
+  width:100%;
+  height:230px;
+  object-fit:cover;
+  border-radius:22px;
+  transition:transform 0.3s;
+}
+
+.gallery img:hover{transform:scale(1.05);}
+
+/* CONTACT */
+.contact{
+  max-width:700px;
+  margin:auto;
+  background:#fff;
+  padding:55px;
+  border-radius:30px;
+  box-shadow:0 30px 70px rgba(0,0,0,0.08);
+}
+
+.contact input,
+.contact textarea{
+  width:100%;
+  padding:15px;
+  border:1px solid #e5e7eb;
+  margin-bottom:18px;
+  font-size:0.9rem;
+}
+
+/* FOOTER */
+footer{
+  padding:50px;
+  text-align:center;
+  font-size:0.85rem;
+  color:var(--muted);
+  border-top:1px solid #eee;
+}
+
+/* FLOATING SOCIAL + CHAT */
+.social-float{
+  position:fixed;
+  right:28px;
+  bottom:28px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  z-index:999;
+}
+
+.social-btn, .ai-btn{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#1f2937;
+  text-decoration:none;
+  font-size:1.2rem;
+  box-shadow:0 12px 30px rgba(0,0,0,0.15);
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+
+.social-btn{
+  background:var(--white);
+  backdrop-filter:blur(10px);
+}
+
+.social-btn:hover, .ai-btn:hover{
+  transform:translateY(-3px);
+}
+
+.ai-btn{
+  background:var(--yellow);
+}
+
+.ai-btn img{
+  width:28px;
+  height:28px;
+}
+
+/* AI CHAT BOX */
+.chat-box{
+  position:fixed;
+  right:90px;
+  bottom:28px;
+  width:340px;
+  background:#fff;
+  border-radius:26px;
+  box-shadow:0 40px 80px rgba(0,0,0,0.2);
+  display:none;
+  flex-direction:column;
+  z-index:1000;
+}
+
+.chat-header{
+  padding:18px;
+  font-family:'Playfair Display', serif;
+  border-bottom:1px solid #eee;
+}
+
+.chat-body{
+  padding:18px;
+  height:240px;
+  overflow:auto;
+  font-size:0.9rem;
+}
+
+.chat-input{
+  display:flex;
+  border-top:1px solid #eee;
+}
+
+.chat-input input{
+  flex:1;
+  padding:14px;
+  border:none;
+}
+
+.chat-input button{
+  padding:14px 20px;
+  border:none;
+  background:var(--blue);
+  color:var(--white);
+  cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  header{padding:20px 30px;}
+  section{padding:100px 30px;}
+  .about{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-container">
+    <img src="logo.png" alt="EXTREMELI SUITES">
+    <span class="hotel-name"></span>
+  </div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#rooms">Rooms</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div>
+    <h1>EXTREMELI SUITES</h1>
+    <p>REFINED • TRANQUIL • TIMELESS</p>
+  </div>
+</section>
+
+<section id="about">
+  <h2 class="section-title">About</h2>
+  <div class="about">
+    <p>
+About Extremeli Suites: Founded in May 2015, Extremeli Suites started with 72 rooms and a vision to provide exceptional hospitality. We offer thoughtfully designed rooms, serviced residences, and commercial spaces. Our pillars of Service Excellence, Professional Management, and Guest Satisfaction ensure a seamless experience for every guest.
+    </p>
+    <div class="about-img">
+      <img src="pool.png" alt="Hotel Pool">
+    </div>
+  </div>
+</section>
+
+<section id="rooms">
+  <h2 class="section-title">Rooms & Suites</h2>
+  <div class="rooms">
+    <div class="room">
+      <img src="deluxe a1.png" alt="Deluxe A Room">
+      <div>Deluxe A Room (Without Balcony)</div>
+    </div>
+    <div class="room">
+      <img src="deluxe b1.png" alt="Deluxe B Room">
+      <div>Deluxe B (With Balcony)</div>
+    </div>
+    <div class="room">
+      <img src="jsc.png" alt="junior suites c">
+      <div>junior suites c</div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <h2 class="section-title">Gallery</h2>
+  <div class="gallery">
+    <img src="resto.png" alt="Gallery Image 1">
+    <img src="resto1.png" alt="Gallery Image 2">
+    <img src="lobby.png" alt="Gallery Image 3">
+    <img src="lobby2.png" alt="Gallery Image 4">
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="section-title">Contact</h2>
+  <div class="contact">
+    <input placeholder="Name" type="text">
+    <input placeholder="Email" type="email">
+    <textarea rows="4" placeholder="Message"></textarea>
+    <button style="padding:12px 25px; background:var(--blue); color:#fff; border:none; cursor:pointer;">Send</button>
+  </div>
+</section>
+
+<footer>
+  © 2026 EXTREMELI SUITES. All Rights Reserved.
+</footer>
+
+<!-- Floating Social + Chat -->
+<div class="social-float">
+  <a class="social-btn" href="https://www.facebook.com/ExtremeliSuites.Inc" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+  <a class="social-btn" href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+  <a class="social-btn" href="https://m.me" target="_blank" title="Messenger"><i class="fab fa-facebook-messenger"></i></a>
+  <div class="ai-btn" onclick="toggleChat()">
+    <img src="chaticon.png" alt="Chat Concierge">
+  </div>
+</div>
+
+<!-- AI Chat Box -->
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">AI Concierge</div>
+  <div class="chat-body" id="chatBody">
+    Welcome to Extremeli Suites! How may I assist you today?
+  </div>
+  <div class="chat-input">
+    <input id="chatInput" placeholder="Type your message...">
+    <button onclick="sendMsg()">Send</button>
+  </div>
+</div>
+
+<script>
+function toggleChat(){
+  const box = document.getElementById('chatBox');
+  box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+}
+function sendMsg(){
+  const input = document.getElementById('chatInput');
+  const body = document.getElementById('chatBody');
+  if(!input.value.trim()) return;
+  body.innerHTML += `<br><strong>You:</strong> ${input.value}`;
+  body.innerHTML += `<br><strong>Concierge:</strong> Thank you for your inquiry. Our team will assist you shortly.`;
+  input.value='';
+  body.scrollTop = body.scrollHeight;
+}
+</script>
+
+</body>
+</html>

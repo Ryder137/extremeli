@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXTREMELI SUITES - Rooms & Suites</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo1.png') }}">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<header>
+  <div class="logo-container">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="EXTREMELI SUITES">
+  </div>
+  <nav class="nav-desktop">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('rooms') }}" class="active">Rooms</a>
+    <a href="{{ url_for('contact') }}">Contact</a>
+  </nav>
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav class="nav-mobile" id="navMobile">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('rooms') }}" class="active">Rooms</a>
+    <a href="{{ url_for('contact') }}">Contact</a>
+  </nav>
+</header>
+
+<section id="rooms">
+  <div class="container">
+    <h2 class="section-title">Rooms & Suites</h2>
+    <div class="rooms">
+      <div class="room">
+        <div class="room-image">
+          <img src="{{ url_for('static', filename='images/deluxe a1.png') }}" alt="Deluxe A Room">
+        </div>
+        <div class="room-info">
+          <h3>Deluxe A Room</h3>
+          <p class="room-desc">Without Balcony</p>
+          <div class="room-features">
+            <span><i class="fas fa-users"></i> 2 Guests</span>
+            <span><i class="fas fa-wifi"></i> Free WiFi</span>
+          </div>
+          <div class="room-price">
+            <span class="price">₱2,500</span>
+            <span class="per-night">per night</span>
+          </div>
+          <button class="btn-book">Book Now</button>
+        </div>
+      </div>
+      
+      <div class="room">
+        <div class="room-image">
+          <img src="{{ url_for('static', filename='images/deluxe b1.png') }}" alt="Deluxe B Room">
+        </div>
+        <div class="room-info">
+          <h3>Deluxe B Room</h3>
+          <p class="room-desc">With Balcony</p>
+          <div class="room-features">
+            <span><i class="fas fa-users"></i> 2 Guests</span>
+            <span><i class="fas fa-wifi"></i> Free WiFi</span>
+            <span><i class="fas fa-sun"></i> Balcony</span>
+          </div>
+          <div class="room-price">
+            <span class="price">₱3,000</span>
+            <span class="per-night">per night</span>
+          </div>
+          <button class="btn-book">Book Now</button>
+        </div>
+      </div>
+      
+      <div class="room">
+        <div class="room-image">
+          <img src="{{ url_for('static', filename='images/jsc.png') }}" alt="Junior Suite C">
+        </div>
+        <div class="room-info">
+          <h3>Junior Suite C</h3>
+          <p class="room-desc">Premium Suite</p>
+          <div class="room-features">
+            <span><i class="fas fa-users"></i> 1-2 Guests</span>
+            <span><i class="fas fa-wifi"></i> Free WiFi</span>
+            <span><i class="fas fa-sun"></i> Balcony</span>
+            <span><i class="fas fa-couch"></i> Living Area</span>
+          </div>
+          <div class="room-price">
+            <span class="price">₱4,500</span>
+            <span class="per-night">per night</span>
+          </div>
+          <button class="btn-book">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 EXTREMELI SUITES. All Rights Reserved.
+</footer>
+
+<!-- Floating Social + Chat -->
+<div class="social-float">
+  <a class="social-btn" href="https://www.facebook.com/ExtremeliSuites.Inc" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+  <a class="social-btn" href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+  <a class="social-btn" href="https://m.me" target="_blank" title="Messenger"><i class="fab fa-facebook-messenger"></i></a>
+</div>
+
+<!-- AI Chat Box -->
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">AI Concierge</div>
+  <div class="chat-body" id="chatBody">
+    Welcome to Extremeli Suites! How may I assist you today?
+  </div>
+  <div class="chat-input">
+    <input id="chatInput" placeholder="Type your message...">
+    <button onclick="sendMsg()">Send</button>
+  </div>
+</div>
+
+<script>
+function toggleChat(){
+  const box = document.getElementById('chatBox');
+  box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+}
+function sendMsg(){
+  const input = document.getElementById('chatInput');
+  const body = document.getElementById('chatBody');
+  if(!input.value.trim()) return;
+  body.innerHTML += `<br><strong>You:</strong> ${input.value}`;
+  body.innerHTML += `<br><strong>Concierge:</strong> Thank you for your inquiry. Our team will assist you shortly.`;
+  input.value='';
+  body.scrollTop = body.scrollHeight;
+}
+
+// Mobile menu toggle
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+
+hamburger.addEventListener('click', function() {
+  hamburger.classList.toggle('active');
+  navMobile.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a link
+navMobile.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navMobile.classList.remove('active');
+  });
+});
+</script>
+
+</body>
+</html>

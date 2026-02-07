@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "icon": "fas fa-concierge-bell",
+    "title": "Exceptional Service",
+    "description": "Experience world-class hospitality with our dedicated team",
+    "image": "lobby.png"
+  },
+  {
+    "id": 2,
+    "icon": "fas fa-bed",
+    "title": "Luxurious Rooms",
+    "description": "Elegantly designed spaces for ultimate comfort",
+    "image": "deluxe a1.png"
+  },
+  {
+    "id": 3,
+    "icon": "fas fa-utensils",
+    "title": "Fine Dining",
+    "description": "Savor exquisite cuisine at our restaurant",
+    "image": "resto.png"
+  },
+  {
+    "id": 4,
+    "icon": "fas fa-swimming-pool",
+    "title": "Recreation",
+    "description": "Relax and unwind in our premium facilities",
+    "image": "pool.png"
+  }
+]

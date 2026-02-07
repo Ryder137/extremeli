@@ -1,0 +1,256 @@
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+import os
+import json
+
+app = Flask(__name__)
+app.secret_key = 'your-secret-key-here'
+
+# Data storage files
+FEATURES_FILE = 'data/features.json'
+NEARBY_FILE = 'data/nearby.json'
+
+# Ensure data directory exists
+os.makedirs('data', exist_ok=True)
+
+# Initialize data files if they don't exist
+def initialize_data():
+    if not os.path.exists(FEATURES_FILE):
+        default_features = [
+            {
+                "id": 1,
+                "icon": "fas fa-concierge-bell",
+                "title": "Exceptional Service",
+                "description": "Experience world-class hospitality with our dedicated team",
+                "image": "lobby.png"
+            },
+            {
+                "id": 2,
+                "icon": "fas fa-bed",
+                "title": "Luxurious Rooms",
+                "description": "Elegantly designed spaces for ultimate comfort",
+                "image": "deluxe a1.png"
+            },
+            {
+                "id": 3,
+                "icon": "fas fa-utensils",
+                "title": "Fine Dining",
+                "description": "Savor exquisite cuisine at our restaurant",
+                "image": "resto.png"
+            },
+            {
+                "id": 4,
+                "icon": "fas fa-swimming-pool",
+                "title": "Recreation",
+                "description": "Relax and unwind in our premium facilities",
+                "image": "pool.png"
+            }
+        ]
+        with open(FEATURES_FILE, 'w') as f:
+            json.dump(default_features, f, indent=2)
+
+    if not os.path.exists(NEARBY_FILE):
+        default_nearby = [
+            {
+                "id": 1,
+                "title": "City of Dreams",
+                "description": "Premier entertainment and gaming destination",
+                "image": "cod.jpg",
+                "distance": "2.1 km • 8 min walk"
+            },
+            {
+                "id": 2,
+                "title": "Landers",
+                "description": "Supermarket and shopping center for daily needs",
+                "image": "Landers.jpg",
+                "distance": "1.2 km • 5 min walk"
+            },
+            {
+                "id": 3,
+                "title": "MOA Arena",
+                "description": "World-class concert and sports events venue",
+                "image": "MOA ARENA.jpg",
+                "distance": "3.5 km • 12 min walk"
+            },
+            {
+                "id": 4,
+                "title": "MOA Globe",
+                "description": "Iconic observation wheel with spectacular city views",
+                "image": "MOA GLOBE.jpg",
+                "distance": "3.2 km • 10 min walk"
+            }
+        ]
+        with open(NEARBY_FILE, 'w') as f:
+            json.dump(default_nearby, f, indent=2)
+
+def load_data(filename):
+    if os.path.exists(filename):
+        with open(filename, 'r') as f:
+            return json.load(f)
+    return []
+
+def save_data(filename, data):
+    with open(filename, 'w') as f:
+        json.dump(data, f, indent=2)
+
+# Admin routes
+@app.route('/admin')
+def admin_dashboard():
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    return render_template('admin/dashboard.html')
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        # Simple authentication (you should use proper password hashing in production)
+        if username == 'admin' and password == 'admin123':
+            session['admin_logged_in'] = True
+            flash('Login successful!', 'success')
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash('Invalid credentials!', 'error')
+    return render_template('admin/login.html')
+
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('admin_logged_in', None)
+    flash('Logged out successfully!', 'info')
+    return redirect(url_for('admin_login'))
+
+@app.route('/admin/features')
+def admin_features():
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    features = load_data(FEATURES_FILE)
+    return render_template('admin/features.html', features=features)
+
+@app.route('/admin/features/add', methods=['GET', 'POST'])
+def admin_add_feature():
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    
+    if request.method == 'POST':
+        features = load_data(FEATURES_FILE)
+        new_id = max([f['id'] for f in features], default=0) + 1
+        
+        new_feature = {
+            "id": new_id,
+            "icon": request.form.get('icon'),
+            "title": request.form.get('title'),
+            "description": request.form.get('description'),
+            "image": request.form.get('image')
+        }
+        
+        features.append(new_feature)
+        save_data(FEATURES_FILE, features)
+        flash('Feature added successfully!', 'success')
+        return redirect(url_for('admin_features'))
+    
+    return render_template('admin/add_feature.html')
+
+@app.route('/admin/features/edit/<int:feature_id>', methods=['GET', 'POST'])
+def admin_edit_feature(feature_id):
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    
+    features = load_data(FEATURES_FILE)
+    feature = next((f for f in features if f['id'] == feature_id), None)
+    
+    if not feature:
+        flash('Feature not found!', 'error')
+        return redirect(url_for('admin_features'))
+    
+    if request.method == 'POST':
+        feature['icon'] = request.form.get('icon')
+        feature['title'] = request.form.get('title')
+        feature['description'] = request.form.get('description')
+        feature['image'] = request.form.get('image')
+        
+        save_data(FEATURES_FILE, features)
+        flash('Feature updated successfully!', 'success')
+        return redirect(url_for('admin_features'))
+    
+    return render_template('admin/edit_feature.html', feature=feature)
+
+@app.route('/admin/features/delete/<int:feature_id>')
+def admin_delete_feature(feature_id):
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    
+    features = load_data(FEATURES_FILE)
+    features = [f for f in features if f['id'] != feature_id]
+    save_data(FEATURES_FILE, features)
+    flash('Feature deleted successfully!', 'success')
+    return redirect(url_for('admin_features'))
+
+@app.route('/admin/nearby')
+def admin_nearby():
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    nearby = load_data(NEARBY_FILE)
+    return render_template('admin/nearby.html', nearby=nearby)
+
+@app.route('/admin/nearby/add', methods=['GET', 'POST'])
+def admin_add_nearby():
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    
+    if request.method == 'POST':
+        nearby = load_data(NEARBY_FILE)
+        new_id = max([n['id'] for n in nearby], default=0) + 1
+        
+        new_place = {
+            "id": new_id,
+            "title": request.form.get('title'),
+            "description": request.form.get('description'),
+            "image": request.form.get('image'),
+            "distance": request.form.get('distance')
+        }
+        
+        nearby.append(new_place)
+        save_data(NEARBY_FILE, nearby)
+        flash('Nearby place added successfully!', 'success')
+        return redirect(url_for('admin_nearby'))
+    
+    return render_template('admin/add_nearby.html')
+
+@app.route('/admin/nearby/edit/<int:place_id>', methods=['GET', 'POST'])
+def admin_edit_nearby(place_id):
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    
+    nearby = load_data(NEARBY_FILE)
+    place = next((n for n in nearby if n['id'] == place_id), None)
+    
+    if not place:
+        flash('Place not found!', 'error')
+        return redirect(url_for('admin_nearby'))
+    
+    if request.method == 'POST':
+        place['title'] = request.form.get('title')
+        place['description'] = request.form.get('description')
+        place['image'] = request.form.get('image')
+        place['distance'] = request.form.get('distance')
+        
+        save_data(NEARBY_FILE, nearby)
+        flash('Place updated successfully!', 'success')
+        return redirect(url_for('admin_nearby'))
+    
+    return render_template('admin/edit_nearby.html', place=place)
+
+@app.route('/admin/nearby/delete/<int:place_id>')
+def admin_delete_nearby(place_id):
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    
+    nearby = load_data(NEARBY_FILE)
+    nearby = [n for n in nearby if n['id'] != place_id]
+    save_data(NEARBY_FILE, nearby)
+    flash('Place deleted successfully!', 'success')
+    return redirect(url_for('admin_nearby'))
+
+if __name__ == '__main__':
+    initialize_data()
+    app.run(debug=True, host='0.0.0.0', port=5001)

@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "title": "City of Dreams",
+    "description": "Premier entertainment and gaming destination",
+    "image": "cod.jpg",
+    "distance": "2.1 km \u2022 8 min walk"
+  },
+  {
+    "id": 2,
+    "title": "Landers",
+    "description": "Supermarket and shopping center for daily needs",
+    "image": "Landers.jpg",
+    "distance": "1.2 km \u2022 5 min walk"
+  },
+  {
+    "id": 3,
+    "title": "MOA Arena",
+    "description": "World-class concert and sports events venue",
+    "image": "MOA ARENA.jpg",
+    "distance": "3.5 km \u2022 12 min walk"
+  },
+  {
+    "id": 4,
+    "title": "MOA Globe",
+    "description": "Iconic observation wheel with spectacular city views",
+    "image": "MOA GLOBE.jpg",
+    "distance": "3.2 km \u2022 10 min walk"
+  },
+  {
+    "id": 5,
+    "title": "NAIA Terminal 3",
+    "description": "International airport terminal for convenient travel",
+    "image": "naiaterm3.jpg",
+    "distance": "8.7 km \u2022 15 min drive"
+  },
+  {
+    "id": 6,
+    "title": "NAIA Terminal 1",
+    "description": "International airport terminal for global connections",
+    "image": "naiaterm1.jpg",
+    "distance": "9.2 km \u2022 20 min drive"
+  },
+  {
+    "id": 7,
+    "title": "National University-MOA",
+    "description": "Premier educational institution near the mall area",
+    "image": "National University-MOA.jpg",
+    "distance": "4.1 km \u2022 14 min walk"
+  },
+  {
+    "id": 8,
+    "title": "Parqal",
+    "description": "Modern shopping and dining complex",
+    "image": "parqal.jpg",
+    "distance": "2.8 km \u2022 9 min walk"
+  },
+  {
+    "id": 9,
+    "title": "SNR",
+    "description": "Shopping center with various retail options",
+    "image": "snr.jpg",
+    "distance": "1.8 km \u2022 6 min walk"
+  },
+  {
+    "id": 10,
+    "title": "Solaire",
+    "description": "Luxury resort and casino with premium amenities",
+    "image": "solaire.png",
+    "distance": "2.5 km \u2022 8 min walk"
+  }
+]

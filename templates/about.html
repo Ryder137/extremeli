@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXTREMELI SUITES - About</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo1.png') }}">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<header>
+  <div class="logo-container">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="EXTREMELI SUITES">
+  </div>
+  <nav class="nav-desktop">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('about') }}" class="active">About</a>
+    <a href="{{ url_for('rooms') }}">Rooms</a>
+    <a href="{{ url_for('contact') }}">Contact</a>
+  </nav>
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav class="nav-mobile" id="navMobile">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('about') }}" class="active">About</a>
+    <a href="{{ url_for('rooms') }}">Rooms</a>
+    <a href="{{ url_for('contact') }}">Contact</a>
+  </nav>
+</header>
+
+<section id="about">
+  <div class="container">
+    
+    <h2 class="section-title">Welcome to EXTREMELI SUITES</h2>
+    
+    <div class="about">
+      <div class="about-content">
+        <div class="about-intro">
+          <h3>Your Perfect Urban Retreat</h3>
+          <p>
+            Founded in May 2015, Extremeli Suites began with a vision to redefine hospitality in the heart of the city. What started with 72 carefully designed rooms has blossomed into a premier destination for travelers seeking comfort, convenience, and exceptional service.
+          </p>
+        </div>
+        
+        <div class="about-features">
+          <div class="feature-item">
+            <i class="fas fa-star"></i>
+            <div>
+              <h4>Service Excellence</h4>
+              <p>Our dedicated team goes above and beyond to ensure every stay exceeds your expectations.</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              <h4>Professional Management</h4>
+              <p>Years of expertise in hospitality ensure seamless operations and guest satisfaction.</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <i class="fas fa-heart"></i>
+            <div>
+              <h4>Guest-Centric Approach</h4>
+              <p>Your comfort and satisfaction are at the heart of everything we do.</p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="about-img slideshow-container">
+        <div class="slide fade">
+          <img src="{{ url_for('static', filename='images/lobby.png') }}" alt="Hotel Lobby">
+        </div>
+        <div class="slide fade">
+          <img src="{{ url_for('static', filename='images/lobby2.png') }}" alt="Hotel Lobby">
+        </div>
+        <div class="slide fade">
+          <img src="{{ url_for('static', filename='images/pool.png') }}" alt="Hotel Pool">
+        </div>
+      </div>
+    </div>
+    
+    <div class="about-cta">
+      <h3>Ready to experience the Extremeli difference?</h3>
+      <p>Discover the perfect blend of luxury, comfort, and exceptional service that sets us apart. Whether you're traveling for business or leisure, our dedicated team is committed to making your stay unforgettable.</p>
+      <div class="cta-features">
+        <span><i class="fas fa-check-circle"></i> Premium Amenities</span>
+        <span><i class="fas fa-check-circle"></i> Personalized Service</span>
+        <span><i class="fas fa-check-circle"></i> Prime Location</span>
+        <span><i class="fas fa-check-circle"></i> Exceptional Value</span>
+      </div>
+      <div class="cta-buttons">
+        <a href="{{ url_for('rooms') }}" class="btn-primary">Explore Our Rooms</a>
+        <a href="{{ url_for('contact') }}" class="btn-secondary">Contact Us</a>
+      </div>
+    </div>
+    
+    
+    
+    <div class="about-manager">
+      <div class="manager-card">
+        <div class="manager-image">
+          <img src="{{ url_for('static', filename='images/gm (1).png') }}" alt="General Manager Camille Lucena">
+        </div>
+        <div class="manager-info">
+          <h3>Meet Our General Manager</h3>
+          <h4>Camille Lucena</h4>
+          <p>With over 15 years of hospitality excellence, Camille Lucena leads Extremeli Suites with a vision of unparalleled guest service and operational excellence. Her commitment to creating memorable experiences ensures that every guest feels valued and cared for during their stay.</p>
+          <div class="manager-credentials">
+            <span><i class="fas fa-award"></i> Hospitality Management Degree</span>
+            <span><i class="fas fa-certificate"></i> Certified Hotel Administrator</span>
+            <span><i class="fas fa-users"></i> 15+ Years Experience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<footer>
+  © 2026 EXTREMELI SUITES. All Rights Reserved.
+</footer>
+
+<!-- Floating Social + Chat -->
+<div class="social-float">
+  <a class="social-btn" href="https://www.facebook.com/ExtremeliSuites.Inc" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+  <a class="social-btn" href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+  <a class="social-btn" href="https://m.me" target="_blank" title="Messenger"><i class="fab fa-facebook-messenger"></i></a>
+</div>
+
+
+<script>
+// Mobile menu toggle
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+
+hamburger.addEventListener('click', function() {
+  hamburger.classList.toggle('active');
+  navMobile.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a link
+navMobile.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navMobile.classList.remove('active');
+  });
+});
+
+// Slideshow functionality
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let slides = document.getElementsByClassName("slide");
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 7000); // Change image every 7 seconds
+}
+</script>
+
+</body>
+</html>

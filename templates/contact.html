@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXTREMELI SUITES - Contact</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo1.png') }}">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<header>
+  <div class="logo-container">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="EXTREMELI SUITES">
+  </div>
+  <nav class="nav-desktop">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('rooms') }}">Rooms</a>
+    <a href="{{ url_for('contact') }}" class="active">Contact</a>
+  </nav>
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav class="nav-mobile" id="navMobile">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('rooms') }}">Rooms</a>
+    <a href="{{ url_for('contact') }}" class="active">Contact</a>
+  </nav>
+</header>
+
+<section id="contact">
+  <h2 class="section-title">Contact</h2>
+  <div class="contact">
+    <input placeholder="Name" type="text">
+    <input placeholder="Email" type="email">
+    <textarea rows="4" placeholder="Message"></textarea>
+    <button style="padding:12px 25px; background:var(--blue); color:#fff; border:none; cursor:pointer;">Send</button>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 EXTREMELI SUITES. All Rights Reserved.
+</footer>
+
+<!-- Floating Social + Chat -->
+<div class="social-float">
+  <a class="social-btn" href="https://www.facebook.com/ExtremeliSuites.Inc" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+  <a class="social-btn" href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+  <a class="social-btn" href="https://m.me" target="_blank" title="Messenger"><i class="fab fa-facebook-messenger"></i></a>
+</div>
+
+<script>
+// Mobile menu toggle
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+
+hamburger.addEventListener('click', function() {
+  hamburger.classList.toggle('active');
+  navMobile.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a link
+navMobile.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navMobile.classList.remove('active');
+  });
+});
+</script>
+
+</body>
+</html>

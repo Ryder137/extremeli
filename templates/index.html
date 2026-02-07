@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXTREMELI SUITES - Home</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo1.png') }}">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<header>
+  <div class="logo-container">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="EXTREMELI SUITES">
+  </div>
+  <nav class="nav-desktop">
+    <a href="{{ url_for('index') }}" class="active">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('rooms') }}">Rooms</a>
+    <a href="{{ url_for('contact') }}">Contact</a>
+  </nav>
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav class="nav-mobile" id="navMobile">
+    <a href="{{ url_for('index') }}" class="active">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('rooms') }}">Rooms</a>
+    <a href="{{ url_for('contact') }}">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Where Elegance and Comfort Meet!</h1>
+    <p>REFINED • TRANQUIL • TIMELESS</p>
+    <div class="hero-buttons">
+      <a href="{{ url_for('rooms') }}" class="btn-primary">Explore Rooms</a>
+      <a href="{{ url_for('contact') }}" class="btn-secondary">Book Now</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <h2 class="section-title">Why Choose Extremeli Suites</h2>
+    <div class="features-grid">
+      {% for feature in features %}
+      <div class="feature-card">
+        <img src="{{ url_for('static', filename='images/' + feature.image) }}" alt="{{ feature.title }}">
+        <i class="{{ feature.icon }}"></i>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="attractions-tabs">
+  <div class="container">
+    <h2 class="section-title">Discover Extremeli Suites</h2>
+    
+    <div class="tabs-container">
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="nearby">Explore Nearby Attractions</button>
+        <button class="tab-btn" data-tab="testimonials">What Our Guests Say</button>
+      </div>
+      
+      <div class="tabs-content">
+        <div class="tab-pane active" id="nearby">
+          <div class="nearby-grid">
+            {% for place in nearby %}
+            <div class="nearby-card">
+              <img src="{{ url_for('static', filename='images/' + place.image) }}" alt="{{ place.title }}">
+              <div class="nearby-content">
+                <h3>{{ place.title }}</h3>
+                <p>{{ place.description }}</p>
+                <span class="distance">{{ place.distance }}</span>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        
+        <div class="tab-pane" id="testimonials">
+          <div class="testimonials-grid">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="testimonial-stars">
+                  {% for i in range(5) %}
+                    <i class="fas fa-star"></i>
+                  {% endfor %}
+                </div>
+                <p class="testimonial-message">{{ testimonial.message }}</p>
+              </div>
+              <div class="testimonial-author">
+                <div class="author-info">
+                  <h4>{{ testimonial.name }}</h4>
+                  <p class="author-date">{{ testimonial.date.strftime('%B %Y') }}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% if not testimonials %}
+          <div class="no-testimonials">
+            <i class="fas fa-comments"></i>
+            <h3>No Reviews Yet</h3>
+            <p>Be the first to share your experience with us!</p>
+            <a href="{{ url_for('contact') }}" class="btn-primary">Share Your Feedback</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <h2>Ready for an Unforgettable Stay?</h2>
+    <p>Book your perfect getaway at Extremeli Suites</p>
+    <a href="{{ url_for('contact') }}" class="btn-primary">Reserve Your Room</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 EXTREMELI SUITES. All Rights Reserved.
+</footer>
+
+<!-- Floating Social + Chat -->
+<div class="social-float">
+  <a class="social-btn" href="https://www.facebook.com/ExtremeliSuites.Inc" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+  <a class="social-btn" href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+  <a class="social-btn" href="https://m.me" target="_blank" title="Messenger"><i class="fab fa-facebook-messenger"></i></a>
+</div>
+
+<!-- AI Chat Box -->
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">AI Concierge</div>
+  <div class="chat-body" id="chatBody">
+    Welcome to Extremeli Suites! How may I assist you today?
+  </div>
+  <div class="chat-input">
+    <input id="chatInput" placeholder="Type your message...">
+    <button onclick="sendMsg()">Send</button>
+  </div>
+</div>
+
+<script>
+// Tab functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+  
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const targetTab = this.getAttribute('data-tab');
+      
+      // Remove active class from all buttons and panes
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanes.forEach(p => p.classList.remove('active'));
+      
+      // Add active class to clicked button and corresponding pane
+      this.classList.add('active');
+      document.getElementById(targetTab).classList.add('active');
+    });
+  });
+});
+
+function toggleChat(){
+  const box = document.getElementById('chatBox');
+  box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+}
+function sendMsg(){
+  const input = document.getElementById('chatInput');
+  const body = document.getElementById('chatBody');
+  if(!input.value.trim()) return;
+  body.innerHTML += `<br><strong>You:</strong> ${input.value}`;
+  body.innerHTML += `<br><strong>Concierge:</strong> Thank you for your inquiry. Our team will assist you shortly.`;
+  input.value='';
+  body.scrollTop = body.scrollHeight;
+}
+
+// Mobile menu toggle
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+
+hamburger.addEventListener('click', function() {
+  hamburger.classList.toggle('active');
+  navMobile.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a link
+navMobile.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navMobile.classList.remove('active');
+  });
+});
+</script>
+
+</body>
+</html>

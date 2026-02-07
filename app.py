@@ -10,6 +10,8 @@ app.secret_key = 'your-secret-key-here'
 FEATURES_FILE = 'data/features.json'
 NEARBY_FILE = 'data/nearby.json'
 FEEDBACK_FILE = 'data/feedback.json'
+BOOKINGS_FILE = 'data/bookings.json'
+USERS_FILE = 'data/users.json'
 
 # Ensure data directory exists
 os.makedirs('data', exist_ok=True)
@@ -130,6 +132,30 @@ def initialize_data():
         with open(FEEDBACK_FILE, 'w') as f:
             json.dump([], f)
 
+    if not os.path.exists(BOOKINGS_FILE):
+        with open(BOOKINGS_FILE, 'w') as f:
+            json.dump([], f)
+
+    if not os.path.exists(USERS_FILE):
+        default_users = [
+            {
+                "id": 1,
+                "username": "admin",
+                "password": "admin123",
+                "role": "admin",
+                "name": "System Administrator"
+            },
+            {
+                "id": 2,
+                "username": "frontdesk",
+                "password": "front123",
+                "role": "front_office",
+                "name": "Front Office Staff"
+            }
+        ]
+        with open(USERS_FILE, 'w') as f:
+            json.dump(default_users, f, indent=2)
+
 def load_data(filename):
     if os.path.exists(filename):
         with open(filename, 'r') as f:
@@ -167,6 +193,13 @@ def contact():
     elif request.method == 'POST':
         return submit_feedback()
 
+@app.route('/booking', methods=['GET', 'POST'])
+def booking():
+    if request.method == 'GET':
+        return render_template('booking.html')
+    elif request.method == 'POST':
+        return submit_booking()
+
 # Admin routes
 @app.route('/admin')
 def admin_dashboard():
@@ -179,10 +212,16 @@ def admin_login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        # Simple authentication (you should use proper password hashing in production)
-        if username == 'admin' and password == 'admin123':
+        
+        users = load_data(USERS_FILE)
+        user = next((u for u in users if u['username'] == username and u['password'] == password), None)
+        
+        if user:
             session['admin_logged_in'] = True
-            flash('Login successful!', 'success')
+            session['user_role'] = user['role']
+            session['user_name'] = user['name']
+            session['user_id'] = user['id']
+            flash(f'Login successful! Welcome, {user["name"]}', 'success')
             return redirect(url_for('admin_dashboard'))
         else:
             flash('Invalid credentials!', 'error')
@@ -191,6 +230,9 @@ def admin_login():
 @app.route('/admin/logout')
 def admin_logout():
     session.pop('admin_logged_in', None)
+    session.pop('user_role', None)
+    session.pop('user_name', None)
+    session.pop('user_id', None)
     flash('Logged out successfully!', 'info')
     return redirect(url_for('admin_login'))
 
@@ -347,6 +389,33 @@ def submit_feedback():
         
     return redirect(url_for('contact'))
 
+# Booking submission
+def submit_booking():
+    if request.method == 'POST':
+        bookings = load_data(BOOKINGS_FILE)
+        new_id = max([b.get('id', 0) for b in bookings], default=0) + 1
+        
+        booking = {
+            "id": new_id,
+            "name": request.form.get('name'),
+            "email": request.form.get('email'),
+            "phone": request.form.get('phone'),
+            "room_type": request.form.get('room_type'),
+            "check_in": request.form.get('check_in'),
+            "check_out": request.form.get('check_out'),
+            "guests": request.form.get('guests'),
+            "special_requests": request.form.get('special_requests', ''),
+            "status": "pending",
+            "created_at": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            "updated_at": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        }
+        
+        bookings.append(booking)
+        save_data(BOOKINGS_FILE, bookings)
+        flash('Booking request submitted successfully! We will confirm your reservation shortly.', 'success')
+        
+    return redirect(url_for('booking'))
+
 @app.route('/admin/feedback')
 def admin_feedback():
     if 'admin_logged_in' not in session:
@@ -377,6 +446,50 @@ def admin_delete_feedback(feedback_id):
     save_data(FEEDBACK_FILE, feedback_list)
     flash('Feedback deleted successfully!', 'success')
     return redirect(url_for('admin_feedback'))
+
+# Booking management routes
+@app.route('/admin/bookings')
+def admin_bookings():
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    
+    bookings = load_data(BOOKINGS_FILE)
+    user_role = session.get('user_role', 'admin')
+    return render_template('admin/bookings.html', bookings=bookings, user_role=user_role)
+
+@app.route('/admin/bookings/update_status/<int:booking_id>', methods=['POST'])
+def admin_update_booking_status(booking_id):
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    
+    bookings = load_data(BOOKINGS_FILE)
+    new_status = request.form.get('status')
+    
+    for booking in bookings:
+        if booking['id'] == booking_id:
+            booking['status'] = new_status
+            booking['updated_at'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            break
+    
+    save_data(BOOKINGS_FILE, bookings)
+    flash(f'Booking status updated to {new_status}!', 'success')
+    return redirect(url_for('admin_bookings'))
+
+@app.route('/admin/bookings/delete/<int:booking_id>')
+def admin_delete_booking(booking_id):
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    
+    # Only admin can delete bookings, not front office
+    if session.get('user_role') != 'admin':
+        flash('Only administrators can delete bookings!', 'error')
+        return redirect(url_for('admin_bookings'))
+    
+    bookings = load_data(BOOKINGS_FILE)
+    bookings = [b for b in bookings if b['id'] != booking_id]
+    save_data(BOOKINGS_FILE, bookings)
+    flash('Booking deleted successfully!', 'success')
+    return redirect(url_for('admin_bookings'))
 
 # Static file serving
 @app.route('/static/<path:filename>')

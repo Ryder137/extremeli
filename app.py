@@ -32,7 +32,7 @@ def initialize_data():
                 "icon": "fas fa-bed",
                 "title": "Luxurious Rooms",
                 "description": "Elegantly designed spaces for ultimate comfort",
-                "image": "deluxe a1.jpg"
+                "image": "deluxe_a1.jpg"
             },
             {
                 "id": 3,
@@ -72,14 +72,14 @@ def initialize_data():
                 "id": 3,
                 "title": "MOA Arena",
                 "description": "World-class concert and sports events venue",
-                "image": "MOA ARENA.jpg",
+                "image": "MOA_ARENA.jpg",
                 "distance": "3.5 km • 12 min walk"
             },
             {
                 "id": 4,
                 "title": "MOA Globe",
                 "description": "Iconic observation wheel with spectacular city views",
-                "image": "MOA GLOBE.jpg",
+                "image": "MOA_GLOBE.jpg",
                 "distance": "3.2 km • 10 min walk"
             },
             {

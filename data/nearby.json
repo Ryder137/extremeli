@@ -17,14 +17,14 @@
     "id": 3,
     "title": "MOA Arena",
     "description": "World-class concert and sports events venue",
-    "image": "MOA ARENA.jpg",
+    "image": "MOA_ARENA.jpg",
     "distance": "3.5 km \u2022 12 min walk"
   },
   {
     "id": 4,
     "title": "MOA Globe",
     "description": "Iconic observation wheel with spectacular city views",
-    "image": "MOA GLOBE.jpg",
+    "image": "MOA_GLOBE.jpg",
     "distance": "3.2 km \u2022 10 min walk"
   },
   {

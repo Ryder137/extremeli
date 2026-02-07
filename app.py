@@ -1,13 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory
 import os
 import json
+from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.secret_key = 'your-secret-key-here'
 
 # Data storage files
 FEATURES_FILE = 'data/features.json'
 NEARBY_FILE = 'data/nearby.json'
+FEEDBACK_FILE = 'data/feedback.json'
 
 # Ensure data directory exists
 os.makedirs('data', exist_ok=True)
@@ -21,28 +23,28 @@ def initialize_data():
                 "icon": "fas fa-concierge-bell",
                 "title": "Exceptional Service",
                 "description": "Experience world-class hospitality with our dedicated team",
-                "image": "lobby.png"
+                "image": "lobby.jpg"
             },
             {
                 "id": 2,
                 "icon": "fas fa-bed",
                 "title": "Luxurious Rooms",
                 "description": "Elegantly designed spaces for ultimate comfort",
-                "image": "deluxe a1.png"
+                "image": "deluxe a1.jpg"
             },
             {
                 "id": 3,
                 "icon": "fas fa-utensils",
                 "title": "Fine Dining",
                 "description": "Savor exquisite cuisine at our restaurant",
-                "image": "resto.png"
+                "image": "resto.jpg"
             },
             {
                 "id": 4,
                 "icon": "fas fa-swimming-pool",
                 "title": "Recreation",
                 "description": "Relax and unwind in our premium facilities",
-                "image": "pool.png"
+                "image": "pool.jpg"
             }
         ]
         with open(FEATURES_FILE, 'w') as f:
@@ -95,7 +97,7 @@ def initialize_data():
             {
                 "id": 7,
                 "title": "National University-MOA",
-                "description": "Premier educational institution near the mall area",
+                "description": "Premier educational institution near mall area",
                 "image": "National University-MOA.jpg",
                 "distance": "4.1 km • 14 min walk"
             },
@@ -124,6 +126,10 @@ def initialize_data():
         with open(NEARBY_FILE, 'w') as f:
             json.dump(default_nearby, f, indent=2)
 
+    if not os.path.exists(FEEDBACK_FILE):
+        with open(FEEDBACK_FILE, 'w') as f:
+            json.dump([], f)
+
 def load_data(filename):
     if os.path.exists(filename):
         with open(filename, 'r') as f:
@@ -139,7 +145,8 @@ def save_data(filename, data):
 def index():
     features = load_data(FEATURES_FILE)
     nearby = load_data(NEARBY_FILE)
-    return render_template('index.html', features=features, nearby=nearby)
+    testimonials = load_data(FEEDBACK_FILE)
+    return render_template('index.html', features=features, nearby=nearby, testimonials=testimonials)
 
 @app.route('/about')
 def about():
@@ -153,9 +160,12 @@ def rooms():
 def gallery():
     return render_template('gallery.html')
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    return render_template('contact.html')
+    if request.method == 'GET':
+        return render_template('contact.html')
+    elif request.method == 'POST':
+        return submit_feedback()
 
 # Admin routes
 @app.route('/admin')
@@ -315,6 +325,63 @@ def admin_delete_nearby(place_id):
     save_data(NEARBY_FILE, nearby)
     flash('Place deleted successfully!', 'success')
     return redirect(url_for('admin_nearby'))
+
+# Feedback submission
+def submit_feedback():
+    if request.method == 'POST':
+        feedback_list = load_data(FEEDBACK_FILE)
+        new_id = max([f.get('id', 0) for f in feedback_list], default=0) + 1
+        
+        feedback = {
+            "id": new_id,
+            "name": request.form.get('name'),
+            "email": request.form.get('email'),
+            "message": request.form.get('message'),
+            "date": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            "read": False
+        }
+        
+        feedback_list.append(feedback)
+        save_data(FEEDBACK_FILE, feedback_list)
+        flash('Thank you for your feedback! We will get back to you soon.', 'success')
+        
+    return redirect(url_for('contact'))
+
+@app.route('/admin/feedback')
+def admin_feedback():
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    feedback = load_data(FEEDBACK_FILE)
+    return render_template('admin/feedback.html', feedback=feedback)
+
+@app.route('/admin/feedback/mark_read/<int:feedback_id>')
+def admin_mark_read(feedback_id):
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    
+    feedback_list = load_data(FEEDBACK_FILE)
+    for item in feedback_list:
+        if item['id'] == feedback_id:
+            item['read'] = True
+            break
+    save_data(FEEDBACK_FILE, feedback_list)
+    return redirect(url_for('admin_feedback'))
+
+@app.route('/admin/feedback/delete/<int:feedback_id>')
+def admin_delete_feedback(feedback_id):
+    if 'admin_logged_in' not in session:
+        return redirect(url_for('admin_login'))
+    
+    feedback_list = load_data(FEEDBACK_FILE)
+    feedback_list = [f for f in feedback_list if f['id'] != feedback_id]
+    save_data(FEEDBACK_FILE, feedback_list)
+    flash('Feedback deleted successfully!', 'success')
+    return redirect(url_for('admin_feedback'))
+
+# Static file serving
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('static', filename)
 
 if __name__ == '__main__':
     initialize_data()

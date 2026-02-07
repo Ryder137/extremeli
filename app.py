@@ -119,7 +119,7 @@ def initialize_data():
                 "id": 10,
                 "title": "Solaire",
                 "description": "Luxury resort and casino with premium amenities",
-                "image": "solaire.png",
+                "image": "solaire.jpg",
                 "distance": "2.5 km • 8 min walk"
             }
         ]

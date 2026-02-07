@@ -23,7 +23,7 @@ def initialize_data():
                 "icon": "fas fa-concierge-bell",
                 "title": "Exceptional Service",
                 "description": "Experience world-class hospitality with our dedicated team",
-                "image": "Logo.png"
+                "image": "lobby.jpg"
             },
             {
                 "id": 2,
@@ -382,11 +382,6 @@ def admin_delete_feedback(feedback_id):
 @app.route('/static/<path:filename>')
 def serve_static(filename):
     return send_from_directory('static', filename)
-
-# Favicon route
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory('static/images', 'logo1.png', mimetype='image/png')
 
 if __name__ == '__main__':
     initialize_data()

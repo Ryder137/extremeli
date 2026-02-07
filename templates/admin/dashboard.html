@@ -123,7 +123,10 @@
 
 <div class="admin-dashboard">
   <div class="admin-header">
-    <h1>Admin Dashboard</h1>
+    <div>
+      <h1>Admin Dashboard</h1>
+      <p style="margin: 5px 0 0 0; color: #6c757d;">Welcome back, {{ session.get('user_name', 'Admin') }} ({{ session.get('user_role', 'admin').replace('_', ' ').title() }})</p>
+    </div>
     <a href="{{ url_for('admin_logout') }}" class="btn-logout">Logout</a>
   </div>
   
@@ -154,11 +157,19 @@
       <p>Read and manage customer feedback</p>
     </a>
     
+    <a href="{{ url_for('admin_bookings') }}" class="admin-card">
+      <i class="fas fa-calendar-check"></i>
+      <h3>Manage Bookings</h3>
+      <p>View and manage booking requests</p>
+    </a>
+    
+    {% if session.get('user_role') == 'admin' %}
     <a href="{{ url_for('index') }}" class="admin-card" target="_blank">
       <i class="fas fa-eye"></i>
       <h3>View Website</h3>
       <p>Open the main website in new tab</p>
     </a>
+    {% endif %}
   </div>
 </div>
 

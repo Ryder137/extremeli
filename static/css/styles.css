@@ -189,7 +189,7 @@ nav a:hover, nav a.active{
 /* FEATURES SECTION */
 .features{
   padding:120px 0;
-  background:linear-gradient(135deg, #E6F3FF 0%, #B8D4F1 50%, #E6F3FF 100%);
+ background:#E6F3FF; 
 }
 
 .features-grid{
@@ -482,7 +482,7 @@ nav a:hover, nav a.active{
 /* NEARBY PLACES SECTION */
 .nearby{
   padding:20px 0;
-  background:linear-gradient(15deg, #5b9ee1 0%, #e9ecef 100%);
+  background:linear-gradient(135deg, #E6F3FF 0%, #B8D4F1 50%, #E6F3FF 100%);
 }
 
 .nearby-grid{
@@ -557,8 +557,8 @@ nav a:hover, nav a.active{
 /* CTA SECTION */
 .cta{
   padding:100px 0;
-  background:linear-gradient(135deg, var(--blue), var(--accent-dark));
-  color:var(--white);
+  background:linear-gradient(135deg, #E6F3FF 0%, #B8D4F1 50%, #E6F3FF 100%);
+  color:var(--text);
   text-align:center;
 }
 
@@ -620,7 +620,7 @@ nav a:hover, nav a.active{
 }
 
 /* SECTIONS */
-section{padding:120px 80px; background:linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);}
+section{padding:120px 80px; background:linear-gradient(135deg, #E6F3FF 0%, #B8D4F1 50%, #E6F3FF 100%);}
 .section-title{
   font-family:'Playfair Display', serif;
   font-size:2.5rem;

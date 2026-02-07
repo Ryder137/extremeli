@@ -100,7 +100,7 @@ def initialize_data():
                 "id": 7,
                 "title": "National University-MOA",
                 "description": "Premier educational institution near mall area",
-                "image": "National University-MOA.jpg",
+                "image": "National_University-MOA.jpg",
                 "distance": "4.1 km • 14 min walk"
             },
             {

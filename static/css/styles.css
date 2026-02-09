@@ -80,7 +80,7 @@ nav a:hover, nav a.active{
   background:url('../images/ame.jpg') center/cover no-repeat;
   background-size: 110%;
   animation:zoomBackground 20s ease-in-out infinite alternate;
-  color:var(--white);
+  color: rgb(71, 118, 184);
   position:relative;
   overflow:hidden;
 }
@@ -111,7 +111,7 @@ nav a:hover, nav a.active{
   font-size:4.5rem;
   margin-bottom:20px;
   font-weight:600;
-  text-shadow:0 4px 20px rgba(0,0,0,0.3);
+  text-shadow:0 10px 20px rgb(255, 255, 255);
 }
 
 .hero p{
@@ -120,7 +120,7 @@ nav a:hover, nav a.active{
   color:var(--white);
   margin-bottom:40px;
   font-weight:300;
-  text-shadow:0 4px 20px rgba(0,0,0,0.10);
+  text-shadow:0 10px 20px rgba(54, 54, 54, 0.26);
 }
 
 .hero-buttons{

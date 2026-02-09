@@ -11,7 +11,7 @@
 
 /* Reset */
 *{margin:0; padding:0; box-sizing:border-box;}
-body{font-family:'Inter', sans-serif; background:linear-gradient(135deg, #f8f9fa 0%, #E6F3FF 50%, #f8f9fa 100%); color:var(--text);}
+body{font-family:'Inter', sans-serif; background:linear-gradient(135deg, #1d3b57 20%, #FADA7A 20%, #162737 10%); color:var(--text);}
 
 /* HEADER */
 header{
@@ -99,7 +99,7 @@ nav a:hover, nav a.active{
 .hero-content{
   z-index:2;
   animation:fadeInUp 1s ease-out;
-  background: rgba(252, 253, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 40px 60px;
@@ -120,7 +120,7 @@ nav a:hover, nav a.active{
   color:var(--white);
   margin-bottom:40px;
   font-weight:300;
-  text-shadow:0 10px 20px rgba(54, 54, 54, 0.26);
+  text-shadow:0 10px 20px rgb(5, 5, 5);
 }
 
 .hero-buttons{
@@ -183,13 +183,13 @@ nav a:hover, nav a.active{
 .container{
   max-width:1200px;
   margin:0 auto;
-  padding:0 20px;
+  padding:0 10px;
 }
 
 /* FEATURES SECTION */
 .features{
-  padding:120px 0;
- background:#E6F3FF; 
+  padding:100px 0;
+  background:linear-gradient(135deg, #E6F3FF 0%, #FADA7A 50%, #E6F3FF 100%);
 }
 
 .features-grid{
@@ -248,8 +248,8 @@ nav a:hover, nav a.active{
 
 /* ATTRACTIONS TABS */
 .attractions-tabs{
-  padding:100px 20px;
-  background:linear-gradient(135deg, #E6F3FF 0%, #B8D4F1 50%, #E6F3FF 100%);
+  padding:100px 10px;
+  background:linear-gradient(135deg, #E6F3FF 0%, #FADA7A 50%, #E6F3FF 100%);
 }
 
 .tabs-container{
@@ -482,7 +482,7 @@ nav a:hover, nav a.active{
 /* NEARBY PLACES SECTION */
 .nearby{
   padding:20px 0;
-  background:linear-gradient(135deg, #E6F3FF 0%, #B8D4F1 50%, #E6F3FF 100%);
+  background:linear-gradient(135deg, #E6F3FF 0%, #FADA7A 50%, #E6F3FF 100%);
 }
 
 .nearby-grid{
@@ -556,8 +556,8 @@ nav a:hover, nav a.active{
 
 /* CTA SECTION */
 .cta{
-  padding:100px 0;
-  background:linear-gradient(135deg, #E6F3FF 0%, #B8D4F1 50%, #E6F3FF 100%);
+  padding:20px 0;
+  background:linear-gradient(135deg, #E6F3FF 0%, #FADA7A 50%, #E6F3FF 100%);
   color:var(--text);
   text-align:center;
 }
@@ -575,8 +575,8 @@ nav a:hover, nav a.active{
 }
 
 .cta .btn-primary{
-  background:var(--yellow);
-  color:var(--text);
+  background:var(--accent-dark);
+  color:var(--black);
   border-color:var(--yellow);
 }
 
@@ -620,7 +620,7 @@ nav a:hover, nav a.active{
 }
 
 /* SECTIONS */
-section{padding:120px 80px; background:linear-gradient(135deg, #E6F3FF 0%, #B8D4F1 50%, #E6F3FF 100%);}
+section{padding:120px 80px; background:linear-gradient(135deg, #E6F3FF 0%, #FADA7A 50%, #E6F3FF 100%);}
 .section-title{
   font-family:'Playfair Display', serif;
   font-size:2.5rem;
@@ -736,7 +736,7 @@ section{padding:120px 80px; background:linear-gradient(135deg, #E6F3FF 0%, #B8D4
 .about-cta{
   text-align:center;
   padding:50px 40px;
-  background:linear-gradient(135deg, #E6F3FF 0%, #B8D4F1 50%, #E6F3FF 100%);
+  background:linear-gradient(135deg, #E6F3FF 0%, #FADA7A 50%, #E6F3FF 100%);
   border-radius:20px;
   border:2px solid var(--accent);
   margin:60px 0;
@@ -1316,7 +1316,7 @@ footer{
   padding:20px;
   text-align:center;
   font-size:0.85rem;
-  color:var(--muted);
+  color:var(--white);
   border-top:1px solid #eee;
 }
 

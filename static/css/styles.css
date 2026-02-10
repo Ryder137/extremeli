@@ -99,11 +99,10 @@ nav a:hover, nav a.active{
 .hero-content{
   z-index:2;
   animation:fadeInUp 1s ease-out;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
   padding: 40px 60px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
 }
 
 .hero h1{
@@ -188,8 +187,8 @@ nav a:hover, nav a.active{
 
 /* FEATURES SECTION */
 .features{
-  padding:100px 0;
-  background:linear-gradient(135deg, #E6F3FF 0%, #FADA7A 50%, #E6F3FF 100%);
+  padding:50px 0;
+  background:linear-gradient(125deg, #2e5f8d 0%, #ffffff 50%, #2e5f8d 100%);
 }
 
 .features-grid{
@@ -248,8 +247,19 @@ nav a:hover, nav a.active{
 
 /* ATTRACTIONS TABS */
 .attractions-tabs{
-  padding:100px 10px;
-  background:linear-gradient(135deg, #E6F3FF 0%, #FADA7A 50%, #E6F3FF 100%);
+  padding:50px 10px;
+  background:linear-gradient(125deg, #2e5f8d 0%, #ffffff 50%, #2e5f8d 100%);
+  position:relative;
+}
+
+.attractions-tabs::after{
+  content:'';
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:50px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,56 C150,100 350,0 600,56 C850,112 1050,0 1200,56 L1200,120 L0,120 Z' fill='%23ffffff'/%3E%3C/svg%3E") center/cover no-repeat;
 }
 
 .tabs-container{
@@ -271,7 +281,7 @@ nav a:hover, nav a.active{
   font-family:'Playfair Display', serif;
   font-size:1.1rem;
   font-weight:500;
-  color:var(--muted);
+  color:var(--white);
   cursor:pointer;
   transition:all 0.3s ease;
   border-bottom:3px solid transparent;
@@ -556,34 +566,64 @@ nav a:hover, nav a.active{
 
 /* CTA SECTION */
 .cta{
-  padding:20px 0;
-  background:linear-gradient(135deg, #E6F3FF 0%, #FADA7A 50%, #E6F3FF 100%);
+  padding:80px 0;
+  background:linear-gradient(125deg, #2e5f8d 0%, #ffffff 50%, #2e5f8d 100%);
   color:var(--text);
   text-align:center;
+  position:relative;
+}
+
+.cta::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:50px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,56 C150,100 350,0 600,56 C850,112 1050,0 1200,56 L1200,120 L0,120 Z' fill='%23ffffff'/%3E%3C/svg%3E") center/cover no-repeat;
+  transform: rotate(180deg);
+}
+
+.cta::after{
+  content:'';
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:50px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,56 C150,100 350,0 600,56 C850,112 1050,0 1200,56 L1200,120 L0,120 Z' fill='%23ffffff'/%3E%3C/svg%3E") center/cover no-repeat;
 }
 
 .cta h2{
   font-family:'Playfair Display', serif;
   font-size:2.5rem;
   margin-bottom:20px;
+  color:#1e2256;
 }
 
 .cta p{
   font-size:1.2rem;
   margin-bottom:40px;
   opacity:0.9;
+  color:#1e2256;
 }
 
 .cta .btn-primary{
-  background:var(--accent-dark);
-  color:var(--black);
-  border-color:var(--yellow);
+  background:var(--blue);
+  color:var(--white);
+  border-color:var(--blue);
+  padding:18px 40px;
+  font-size:1.1rem;
+  border-radius:30px;
+  transition:all 0.3s ease;
 }
 
 .cta .btn-primary:hover{
-  background:var(--white);
-  color:var(--blue);
-  border-color:var(--white);
+  background:var(--accent-dark);
+  color:var(--white);
+  border-color:var(--accent-dark);
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
 /* ANIMATIONS */
@@ -620,13 +660,13 @@ nav a:hover, nav a.active{
 }
 
 /* SECTIONS */
-section{padding:120px 80px; background:linear-gradient(135deg, #E6F3FF 0%, #FADA7A 50%, #E6F3FF 100%);}
+section{padding:120px 80px; background:linear-gradient(125deg, #2e5f8d 0%, #ffffff 50%, #2e5f8d 100%);}
 .section-title{
   font-family:'Playfair Display', serif;
   font-size:2.5rem;
   text-align:center;
   margin-bottom:70px;
-  color:var(--blue);
+  color:#1e2256;
 }
 
 /* ABOUT */
@@ -648,7 +688,7 @@ section{padding:120px 80px; background:linear-gradient(135deg, #E6F3FF 0%, #FADA
 .about-intro h3{
   font-family:'Playfair Display', serif;
   font-size:2rem;
-  color:var(--blue);
+  color:var(--text);
   margin-bottom:20px;
 }
 
@@ -736,7 +776,7 @@ section{padding:120px 80px; background:linear-gradient(135deg, #E6F3FF 0%, #FADA
 .about-cta{
   text-align:center;
   padding:50px 40px;
-  background:linear-gradient(135deg, #E6F3FF 0%, #FADA7A 50%, #E6F3FF 100%);
+  background:#E6F3FF;
   border-radius:20px;
   border:2px solid var(--accent);
   margin:60px 0;
@@ -1502,6 +1542,12 @@ footer{
   .hero h1{
     font-size:2.5rem;
     margin-bottom:15px;
+  }
+  
+  .hero{
+    background-size: cover !important;
+    animation: none !important;
+    background-position: center center !important;
   }
   
   .hero p{
